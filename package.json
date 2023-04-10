@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "develop": "npx nodemon src/server.ts",
-    "run": " npx ts-node src/server.ts ",
+    "start": " npx ts-node src/server.ts ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init:local": "docker run --name fullcircle -p 6688:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=password -e POSTGRES_DB=fullcircle -d postgres",
     "migrate": "npx prisma-merge -b 'prisma/base.prisma' -o 'prisma/schema.prisma' && npx prisma migrate dev && npx prisma generate"
