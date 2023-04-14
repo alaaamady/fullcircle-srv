@@ -1,0 +1,25 @@
+import {  Donation } from "Donation"
+
+enum Issues {
+    BLOATED_CANS
+    UNSAFE_BAGS
+    STALE_BAKERY
+    ROTTEN_FRUITS_OR_VEGETABLES
+}
+
+model SafetyCheck {
+    id              Int      @id @default(autoincrement())
+    expired         Boolean
+    leaking         Boolean
+    spoiled         Boolean
+    issues          Issues[]
+    cookedIsExpired Boolean?
+    cookedIsHot     Boolean?
+    cookedIsSafe    Boolean?
+    cookedIsLeaking Boolean?
+    cookedIsSpoiled Boolean?
+    verified        Boolean
+    additionalNotes String?
+    donation        Donation @relation(fields: [donationId], references: [id])
+    donationId      Int      @unique
+}

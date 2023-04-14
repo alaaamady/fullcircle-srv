@@ -6,6 +6,7 @@ import asyncHandler from "../helpers/asyncHandler";
 import { SuccessResponse } from "../core/ApiResponse";
 import { InternalError } from "../core/ApiError";
 import donation from "./donation";
+import safetyCheck from "./safety-check";
 
 export enum Permission {
   GENERAL = "GENERAL",
@@ -35,5 +36,6 @@ router.use(
 
 // DONATION
 router.use("/donation", donation);
+router.use("/safety-check", safetyCheck);
 
 export default router;
