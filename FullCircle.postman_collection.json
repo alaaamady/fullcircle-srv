@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "b54e6027-4cbf-435a-89ca-0376114911f3",
+		"name": "FullCircle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21312156"
+	},
+	"item": [
+		{
+			"name": "donation",
+			"item": [
+				{
+					"name": "create-donation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Fresh Vegetables\",\n  \"category\": \"GREENS\",\n  \"latitude\": 37.7749,\n  \"longitude\": -122.4194,\n  \"pickUpTimestamp\": \"2023-04-13T12:00:00Z\",\n  \"expiryDate\": \"2023-04-14T12:00:00Z\",\n  \"description\": \"A bag of fresh vegetables\",\n  \"userId\": 1234567890,\n  \"pictures\": [\"https://example.com/picture1.jpg\", \"https://example.com/picture2.jpg\"]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/donation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"donation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-donation-by-id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-donations",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update-donation",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete-donation",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "safety-chec",
+			"item": [
+				{
+					"name": "create-safety-check",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"expired\": false,\n  \"leaking\": true,\n  \"spoiled\": true,\n  \"issues\": [\"BLOATED_CANS\", \"UNSAFE_BAGS\"],\n  \"cookedIsExpired\": null,\n  \"cookedIsHot\": true,\n  \"cookedIsSafe\": true,\n  \"cookedIsLeaking\": false,\n  \"cookedIsSpoiled\": null,\n  \"verified\": false,\n  \"additionalNotes\": \"Some additional notes\",\n  \"donationId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/safety-check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"safety-check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-safety-check-by-id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "driver",
+			"item": [
+				{
+					"name": "create-driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-driver-by-id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update-driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete-driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recipient",
+			"item": [
+				{
+					"name": "create-recipient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"logo\": \"https://example.com/logo.png\",\n  \"name\": \"ABC Orphanage\",\n  \"type\": \"ORPHANAGE\",\n  \"pictures\": [\"https://example.com/pic1.jpg\", \"https://example.com/pic2.jpg\"],\n  \"amountOfPeople\": 50,\n  \"bio\": \"We provide care and support for orphaned children.\",\n  \"userId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/recipient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"recipient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-recipient-by-id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update-recipient",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete-recipient",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-recipients",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "homeless",
+			"item": [
+				{
+					"name": "add-homeless",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"longitude\": -118.2437,\n  \"latitude\": 34.0522,\n  \"address\": \"123 Main St, Los Angeles, CA 90012\",\n  \"description\": \"A homeless person is sleeping on the sidewalk\",\n  \"confirmations\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/homeless",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"homeless"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-homeless-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/homeless/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"homeless",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-homeless",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete-homeless",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-homeless",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "increment-confirmations",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Fresh Vegetables\",\n  \"category\": \"GREENS\",\n  \"latitude\": 37.7749,\n  \"longitude\": -122.4194,\n  \"pickUpTimestamp\": \"2023-04-13T12:00:00Z\",\n  \"expiryDate\": \"2023-04-14T12:00:00Z\",\n  \"description\": \"A bag of fresh vegetables\",\n  \"userId\": 1234567890,\n  \"pictures\": [\"https://example.com/picture1.jpg\", \"https://example.com/picture2.jpg\"]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/donation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"donation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
