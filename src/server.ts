@@ -7,4 +7,7 @@ app
     console.log(`server running on port : ${port}`);
     Logger.info(`server running on port : ${port}`);
   })
-  .on("error", (e) => Logger.error(e));
+  .on("error", (e) => {
+    Logger.error(e);
+    console.error(e);
+  });

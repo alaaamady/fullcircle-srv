@@ -5,6 +5,7 @@ import prisma from "../database";
 import asyncHandler from "../helpers/asyncHandler";
 import { SuccessResponse } from "../core/ApiResponse";
 import { InternalError } from "../core/ApiError";
+import donation from "./donation";
 
 export enum Permission {
   GENERAL = "GENERAL",
@@ -12,22 +13,14 @@ export enum Permission {
 
 const router = express.Router();
 
-router.get(
-  "/health",
-  asyncHandler(async (req: Request, res: Response) => {
-    console.log("BEGINNING");
-    const date = await prisma.$queryRaw`SELECT NOW();`;
-    console.log(date);
-    if (!date) throw new InternalError();
-    new SuccessResponse("API HEALTHY", date).send(res);
-  })
-);
 /*---------------------------------------------------------*/
-router.use(apikey);
+// router.use(apikey);
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
-router.use(permission(Permission.GENERAL));
+// router.use(permission(Permission.GENERAL));
 /*---------------------------------------------------------*/
+
+// HEALTH CHECK
 router.use(
   "/health",
   router.get(
@@ -39,5 +32,8 @@ router.use(
     })
   )
 );
+
+// DONATION
+router.use("/donation", donation);
 
 export default router;

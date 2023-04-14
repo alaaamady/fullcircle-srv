@@ -1,3 +1,4 @@
+import {  Donation } from "Donation"
 enum RoleCode {
     RECIPIENT
     DRIVER
@@ -29,6 +30,7 @@ model User {
     profile_picture_url String
     roles               Role[]
     Keystore            Keystore[]
+    donations           Donation[]
 }
 
 model Keystore {
