@@ -8,7 +8,7 @@
     "start": " npx ts-node src/server.ts ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init:local": "docker run --name fullcircle -p 6688:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=password -e POSTGRES_DB=fullcircle -d postgres",
-    "migrate": "npx prisma-merge -b 'prisma/base.prisma' -o 'prisma/schema.prisma' && npx prisma migrate dev && npx prisma generate"
+    "migrate": "npx prisma-import -s 'src/database/prisma-model/*.prisma' -o 'prisma/schema.prisma' -f && npx prisma migrate dev && npx prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "joi": "^17.8.3",
     "nodemon": "^2.0.20",
     "prisma": "^4.10.1",
+    "prisma-import": "^1.0.4",
     "ts-node": "^10.9.1",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
