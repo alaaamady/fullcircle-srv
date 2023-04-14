@@ -7,6 +7,7 @@ import { SuccessResponse } from "../core/ApiResponse";
 import { InternalError } from "../core/ApiError";
 import donation from "./donation";
 import safetyCheck from "./safety-check";
+import driver from "./driver";
 
 export enum Permission {
   GENERAL = "GENERAL",
@@ -37,5 +38,6 @@ router.use(
 // DONATION
 router.use("/donation", donation);
 router.use("/safety-check", safetyCheck);
+router.use("/driver", driver);
 
 export default router;
