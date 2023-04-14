@@ -1,5 +1,7 @@
 import {  Donation } from "Donation"
 import { Driver } from "Driver"
+import { Recipient } from "Recipient"
+
 enum RoleCode {
     RECIPIENT
     DRIVER
@@ -18,21 +20,22 @@ model Role {
 }
 
 model User {
-    id                  Int        @id @default(autoincrement())
+    id                  Int         @id @default(autoincrement())
     firstname           String
     lastname            String
-    email               String     @unique
+    email               String      @unique
     password            String
     phoneNumber         String
     address             String?
     gender              String?
     age                 Int?
-    is_verified         Boolean    @default(false)
+    is_verified         Boolean     @default(false)
     profile_picture_url String
     roles               Role[]
     Keystore            Keystore[]
     donations           Donation[]
     Driver              Driver[]
+    Recipient           Recipient[]
 }
 
 model Keystore {

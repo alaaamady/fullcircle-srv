@@ -88,6 +88,30 @@ model Driver {
 }
 
 //
+// Recipient.prisma
+//
+
+enum OrganizationType {
+  ORPHANAGE
+  HOMELESS_SHELTER
+  COMMUNITY_KITCHEN
+  FAMILY_IN_NEED
+  ANIMAL_SHELTER
+}
+
+model Recipient {
+  id             Int              @id @default(autoincrement())
+  logo           String
+  name           String
+  type           OrganizationType
+  pictures       String[]
+  amountOfPeople Int
+  bio            String
+  userId         Int
+  user           User             @relation(fields: [userId], references: [id])
+}
+
+//
 // SafetyCheck.prisma
 //
 
@@ -137,21 +161,22 @@ model Role {
 }
 
 model User {
-  id                  Int        @id @default(autoincrement())
+  id                  Int         @id @default(autoincrement())
   firstname           String
   lastname            String
-  email               String     @unique
+  email               String      @unique
   password            String
   phoneNumber         String
   address             String?
   gender              String?
   age                 Int?
-  is_verified         Boolean    @default(false)
+  is_verified         Boolean     @default(false)
   profile_picture_url String
   roles               Role[]
   Keystore            Keystore[]
   donations           Donation[]
   Driver              Driver[]
+  Recipient           Recipient[]
 }
 
 model Keystore {
