@@ -88,6 +88,19 @@ model Driver {
 }
 
 //
+// Homeless.prisma
+//
+
+model Homeless {
+  id            Int    @id @default(autoincrement())
+  longitude     Float
+  latitude      Float
+  address       String
+  description   String
+  confirmations Int
+}
+
+//
 // Recipient.prisma
 //
 
