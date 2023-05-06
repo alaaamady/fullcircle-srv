@@ -8,7 +8,8 @@ async function createDonation(
   category: FoodCategory,
   latitude: number,
   longitude: number,
-  pickUpTimestamp: Date,
+  pickUpTimestampStart: Date,
+  pickUpTimestampEnd: Date,
   expiryDate: Date,
   description: string,
   userId: number,
@@ -20,7 +21,8 @@ async function createDonation(
       category,
       latitude,
       longitude,
-      pickUpTimestamp,
+      pickUpTimestampStart,
+      pickUpTimestampEnd,
       expiryDate,
       description,
       userId,
@@ -64,7 +66,8 @@ async function updateDonation(
     category?: FoodCategory;
     latitude?: number;
     longitude?: number;
-    pickUpTimestamp?: Date;
+    pickUpTimestampStart: Date;
+    pickUpTimestampEnd: Date;
     expiryDate?: Date;
     description?: string;
     userId?: number;
@@ -78,7 +81,8 @@ async function updateDonation(
       category: data.category,
       latitude: data.latitude,
       longitude: data.longitude,
-      pickUpTimestamp: data.pickUpTimestamp,
+      pickUpTimestampStart: data.pickUpTimestampStart,
+      pickUpTimestampEnd: data.pickUpTimestampEnd,
       expiryDate: data.expiryDate,
       description: data.description,
       userId: data.userId,

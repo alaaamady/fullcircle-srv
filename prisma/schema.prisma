@@ -45,18 +45,19 @@ enum FoodCategory {
 }
 
 model Donation {
-  id              Int          @id @default(autoincrement())
-  title           String
-  category        FoodCategory
-  latitude        Float
-  longitude       Float
-  pickUpTimestamp DateTime
-  expiryDate      DateTime
-  description     String
-  user            User         @relation(fields: [userId], references: [id])
-  userId          Int
-  pictures        Picture[]
-  SafetyCheck     SafetyCheck?
+  id                   Int          @id @default(autoincrement())
+  title                String
+  category             FoodCategory
+  latitude             Float
+  longitude            Float
+  pickUpTimestampStart DateTime
+  pickUpTimestampEnd   DateTime
+  expiryDate           DateTime
+  description          String
+  user                 User         @relation(fields: [userId], references: [id])
+  userId               Int
+  pictures             Picture[]
+  SafetyCheck          SafetyCheck?
 }
 
 model Picture {
