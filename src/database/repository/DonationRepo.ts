@@ -1,4 +1,11 @@
 import { PrismaClient, Donation, FoodCategory } from "@prisma/client";
+import AWS from "aws-sdk";
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
 
 const prisma = new PrismaClient();
 
@@ -13,8 +20,20 @@ async function createDonation(
   expiryDate: Date,
   description: string,
   userId: number,
-  pictures: string[]
+  pictures: any
 ): Promise<Donation> {
+  const pictureUrls = await Promise.all(
+    pictures.map(async (file) => {
+      const filename = `${Date.now()}-${file.originalname}`;
+      const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: filename,
+        Body: file.buffer,
+      };
+      const { Location } = await s3.upload(params).promise();
+      return Location;
+    })
+  );
   const donation = await prisma.donation.create({
     data: {
       title,
@@ -27,7 +46,7 @@ async function createDonation(
       description,
       userId,
       pictures: {
-        create: pictures.map((url) => ({ url })),
+        create: pictureUrls.map((url) => ({ url })),
       },
     },
     include: {
