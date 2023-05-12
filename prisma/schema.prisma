@@ -54,8 +54,8 @@ model Donation {
   pickUpTimestampEnd   DateTime
   expiryDate           DateTime
   description          String
-  user                 User         @relation(fields: [userId], references: [id])
-  userId               Int
+  user                 user         @relation(fields: [userId], references: [id])
+  userId               String
   pictures             Picture[]
   SafetyCheck          SafetyCheck?
 }
@@ -72,7 +72,7 @@ model Picture {
 //
 
 model Driver {
-  id                      Int      @id @default(autoincrement())
+  id                      Int               @id @default(autoincrement())
   carType                 String
   carMake                 String
   carModel                String
@@ -84,8 +84,11 @@ model Driver {
   vehicleInspictionReport String
   driverLicense           String
   verified                Boolean
-  userId                  Int
-  user                    User     @relation(fields: [userId], references: [id])
+  userId                  String
+  user                    user              @relation(fields: [userId], references: [id])
+  driverReviews           DriverReview[]
+  recipientReviews        RecipientReview[]
+  DonorReview             DonorReview[]
 }
 
 //
@@ -114,15 +117,89 @@ enum OrganizationType {
 }
 
 model Recipient {
-  id             Int              @id @default(autoincrement())
-  logo           String
-  name           String
-  type           OrganizationType
-  pictures       String[]
-  amountOfPeople Int
-  bio            String
-  userId         Int
-  user           User             @relation(fields: [userId], references: [id])
+  id              Int               @id @default(autoincrement())
+  logo            String
+  name            String
+  type            OrganizationType
+  pictures        String[]
+  amountOfPeople  Int
+  bio             String
+  userId          String
+  user            user              @relation(fields: [userId], references: [id])
+  driverReviews   DriverReview[]
+  recipientReview RecipientReview[]
+  DonorReview     DonorReview[]
+}
+
+//
+// Review.prisma
+//
+
+model DriverReview {
+  id                Int     @id @default(autoincrement())
+  pickupConvenience Int
+  donorDestination  Int
+  packaging         Int
+  additionalNotes   String?
+  type              String
+  correctAddress    Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
+
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
+
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
+}
+
+model RecipientReview {
+  id                Int           @id @default(autoincrement())
+  deliveredWell     Boolean
+  additionalNotes   String?
+  fitCategory       Boolean
+  preferredCategory FoodCategory
+  quantityEnough    Boolean
+  servingsCount     ServingsCount
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
+
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
+
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
+}
+
+enum ServingsCount {
+  LESS_THAN_5
+  LESS_THAN_10
+  LESS_THAN_50
+  LESS_THAN_100
+  OTHER
+}
+
+model DonorReview {
+  id              Int     @id @default(autoincrement())
+  safetyCheck     Boolean
+  additionalNotes String
+
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
+
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
+
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
 }
 
 //
@@ -164,42 +241,22 @@ enum RoleCode {
   ADMIN
 }
 
-model Role {
-  id        Int      @id @default(autoincrement())
-  code      RoleCode
-  status    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
-}
-
-model User {
-  id                  Int         @id @default(autoincrement())
-  firstname           String
-  lastname            String
-  email               String      @unique
-  password            String
-  phoneNumber         String
+model user {
+  id                  String            @id
+  email               String            @unique
+  firstname           String?
+  lastname            String?
+  password            String?
+  phoneNumber         String?
   address             String?
   gender              String?
   age                 Int?
-  is_verified         Boolean     @default(false)
-  profile_picture_url String
-  roles               Role[]
-  Keystore            Keystore[]
+  is_verified         Boolean?          @default(false)
+  profile_picture_url String?
   donations           Donation[]
   Driver              Driver[]
   Recipient           Recipient[]
-}
-
-model Keystore {
-  id           Int      @id @default(autoincrement())
-  client       User     @relation(fields: [clientId], references: [id])
-  clientId     Int
-  primaryKey   String
-  secondaryKey String
-  status       Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  driverReviews       DriverReview[]
+  recipientReviews    RecipientReview[]
+  DonorReview         DonorReview[]
 }

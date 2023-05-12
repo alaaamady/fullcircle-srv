@@ -19,7 +19,7 @@ async function createDonation(
   pickUpTimestampEnd: Date,
   expiryDate: Date,
   description: string,
-  userId: number,
+  userId: string,
   pictures: any
 ): Promise<Donation> {
   const pictureUrls = await Promise.all(
@@ -89,7 +89,7 @@ async function updateDonation(
     pickUpTimestampEnd: Date;
     expiryDate?: Date;
     description?: string;
-    userId?: number;
+    userId?: string;
     pictures?: string[];
   }
 ): Promise<Donation | null> {

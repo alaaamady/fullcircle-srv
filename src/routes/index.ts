@@ -10,6 +10,7 @@ import safetyCheck from "./safety-check";
 import driver from "./driver";
 import recipient from "./recipient";
 import homeless from "./homeless";
+import review from "./review";
 export enum Permission {
   GENERAL = "GENERAL",
 }
@@ -42,4 +43,5 @@ router.use("/safety-check", safetyCheck);
 router.use("/driver", driver);
 router.use("/recipient", recipient);
 router.use("/homeless", homeless);
+router.use("/review", review);
 export default router;

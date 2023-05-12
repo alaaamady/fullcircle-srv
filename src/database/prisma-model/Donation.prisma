@@ -1,14 +1,15 @@
-import { User  } from "User"
 import { SafetyCheck } from "SafetyCheck"
+import { user } from "User"
 
 enum FoodCategory {
-    GREENS
-    COOKED
-    GRAINS
-    DAIRY
-    FROZEN
-    GROCERIES
+  GREENS
+  COOKED
+  GRAINS
+  DAIRY
+  FROZEN
+  GROCERIES
 }
+
 
 model Donation {
     id                   Int          @id @default(autoincrement())
@@ -20,8 +21,8 @@ model Donation {
     pickUpTimestampEnd   DateTime
     expiryDate           DateTime
     description          String
-    user                 User         @relation(fields: [userId], references: [id])
-    userId               Int
+    user                 user         @relation(fields: [userId], references: [id])
+    userId               String
     pictures             Picture[]
     SafetyCheck          SafetyCheck?
 }

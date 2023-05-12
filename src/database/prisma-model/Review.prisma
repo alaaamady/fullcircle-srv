@@ -1,0 +1,76 @@
+import { Driver } from "./Driver"
+import { user } from "./User"
+import { Recipient } from "./Recipient"
+import { user } from "../../../prisma/schema"
+import { FoodCategory } from "./Donation"
+import { FoodCategory } from "../../../prisma/schema"
+
+model DriverReview {
+    id                Int     @id @default(autoincrement())
+    pickupConvenience Int
+    donorDestination  Int
+    packaging         Int
+    additionalNotes   String?
+    type              String
+    correctAddress    Boolean
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    driver   Driver @relation(fields: [driverId], references: [id])
+    driverId Int
+
+    recipient   Recipient @relation(fields: [recipientId], references: [id])
+    recipientId Int
+
+    donor   user   @relation(fields: [donorId], references: [id])
+    donorId String
+}
+
+
+model RecipientReview {
+    id                Int           @id @default(autoincrement())
+    deliveredWell     Boolean
+    additionalNotes   String?
+    fitCategory       Boolean
+    preferredCategory FoodCategory
+    quantityEnough    Boolean
+    servingsCount     ServingsCount
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    driver   Driver @relation(fields: [driverId], references: [id])
+    driverId Int
+
+    recipient   Recipient @relation(fields: [recipientId], references: [id])
+    recipientId Int
+
+    donor   user   @relation(fields: [donorId], references: [id])
+    donorId String
+}
+
+
+enum ServingsCount {
+  LESS_THAN_5
+  LESS_THAN_10
+  LESS_THAN_50
+  LESS_THAN_100
+  OTHER
+}
+
+model DonorReview {
+    id              Int     @id @default(autoincrement())
+    safetyCheck     Boolean
+    additionalNotes String
+
+    driver   Driver @relation(fields: [driverId], references: [id])
+    driverId Int
+
+    recipient   Recipient @relation(fields: [recipientId], references: [id])
+    recipientId Int
+
+    donor   user   @relation(fields: [donorId], references: [id])
+    donorId String
+}
+

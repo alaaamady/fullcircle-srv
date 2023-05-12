@@ -1,6 +1,7 @@
 import {  Donation } from "Donation"
 import { Driver } from "Driver"
 import { Recipient } from "Recipient"
+import { DriverReview, RecipientReview, DonorReview } from "Review"
 
 enum RoleCode {
     RECIPIENT
@@ -9,42 +10,22 @@ enum RoleCode {
     ADMIN
 }
 
-model Role {
-    id        Int      @id @default(autoincrement())
-    code      RoleCode
-    status    Boolean  @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    User      User?    @relation(fields: [userId], references: [id])
-    userId    Int?
-}
-
-model User {
-    id                  Int         @id @default(autoincrement())
-    firstname           String
-    lastname            String
-    email               String      @unique
-    password            String
-    phoneNumber         String
+model user {
+    id                  String            @id
+    email               String            @unique
+    firstname           String?
+    lastname            String?
+    password            String?
+    phoneNumber         String?
     address             String?
     gender              String?
     age                 Int?
-    is_verified         Boolean     @default(false)
-    profile_picture_url String
-    roles               Role[]
-    Keystore            Keystore[]
+    is_verified         Boolean?          @default(false)
+    profile_picture_url String?
     donations           Donation[]
     Driver              Driver[]
     Recipient           Recipient[]
-}
-
-model Keystore {
-    id           Int      @id @default(autoincrement())
-    client       User     @relation(fields: [clientId], references: [id])
-    clientId     Int
-    primaryKey   String
-    secondaryKey String
-    status       Boolean  @default(true)
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+    driverReviews       DriverReview[]
+    recipientReviews    RecipientReview[]
+    DonorReview         DonorReview[]
 }
