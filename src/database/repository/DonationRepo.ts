@@ -20,7 +20,7 @@ async function createDonation(
   expiryDate: Date,
   description: string,
   userId: string,
-  pictures: any
+  pictures: Express.Multer.File[]
 ): Promise<Donation> {
   const pictureUrls = await Promise.all(
     pictures.map(async (file) => {
@@ -55,7 +55,6 @@ async function createDonation(
   });
   return donation;
 }
-
 // Get a single donation by ID
 async function getDonationById(id: number): Promise<Donation | null> {
   const donation = await prisma.donation.findUnique({

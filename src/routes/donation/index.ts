@@ -6,11 +6,16 @@ import {
   updateDonation,
   deleteDonation,
 } from "../../database/repository/DonationRepo";
+import multer, { Multer } from "multer";
 
 const router = express.Router();
 
 // Create a new donation
-router.post("", async (req: Request, res: Response) => {
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Create a new donation
+router.post("", upload.array("pictures"), async (req, res) => {
   try {
     const {
       title,
@@ -22,17 +27,18 @@ router.post("", async (req: Request, res: Response) => {
       expiryDate,
       description,
       userId,
-      pictures,
     } = req.body;
+
+    const pictures = req.files as Express.Multer.File[];
 
     const donation = await createDonation(
       title,
       category,
-      latitude,
-      longitude,
-      pickUpTimestampStart,
-      pickUpTimestampEnd,
-      expiryDate,
+      Number(latitude),
+      Number(longitude),
+      new Date(pickUpTimestampStart),
+      new Date(pickUpTimestampEnd),
+      new Date(expiryDate),
       description,
       userId,
       pictures
@@ -44,7 +50,6 @@ router.post("", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 // Get a single donation by ID
 router.get("/:id", async (req: Request, res: Response) => {
   try {
