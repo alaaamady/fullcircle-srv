@@ -3,7 +3,7 @@ dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import Logger from "./core/Logger";
 import cors from "cors";
-import { corsUrl, environment } from "./config";
+import { corsUrl, environment, port } from "./config";
 import "./database"; // initialize database
 import {
   NotFoundError,

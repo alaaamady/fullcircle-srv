@@ -22,6 +22,11 @@ const router = express.Router();
 // router.use(permission(Permission.GENERAL));
 /*---------------------------------------------------------*/
 
+
+router.get('/', (req: Request, res: Response) => {
+  res.send('Code with Rico. Ready to run on Heroku.');
+});
+
 // HEALTH CHECK
 router.use(
   "/health",
