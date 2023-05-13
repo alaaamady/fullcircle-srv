@@ -1,5 +1,6 @@
 import { user } from "User"
 import { DriverReview, RecipientReview, DonorReview } from "Review"
+import { Donation } from "./Donation"
 
 enum OrganizationType {
     ORPHANAGE
@@ -22,6 +23,7 @@ model Recipient {
     driverReviews   DriverReview[]
     recipientReview RecipientReview[]
     DonorReview     DonorReview[]
+    donations       Donation[]
 }
 
 

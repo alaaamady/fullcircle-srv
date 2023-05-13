@@ -1,5 +1,6 @@
 import { user } from "User"
 import { DriverReview, RecipientReview, DonorReview } from "Review"
+import { Donation } from "../../../prisma/schema"
 
 model Driver {
     id                      Int               @id @default(autoincrement())
@@ -19,6 +20,7 @@ model Driver {
     driverReviews           DriverReview[]
     recipientReviews        RecipientReview[]
     DonorReview             DonorReview[]
+    donations               Donation[]
 }
 
 

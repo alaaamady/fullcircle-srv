@@ -20,7 +20,8 @@ async function createDonation(
   expiryDate: Date,
   description: string,
   userId: string,
-  pictures: Express.Multer.File[]
+  pictures: Express.Multer.File[],
+  area: string,
 ): Promise<Donation> {
   const pictureUrls = await Promise.all(
     pictures.map(async (file) => {
@@ -36,6 +37,7 @@ async function createDonation(
   );
   const donation = await prisma.donation.create({
     data: {
+      area,
       title,
       category,
       latitude,
@@ -47,7 +49,7 @@ async function createDonation(
       userId,
       pictures: {
         create: pictureUrls.map((url) => ({ url })),
-      },
+      }
     },
     include: {
       pictures: true,
@@ -90,11 +92,13 @@ async function updateDonation(
     description?: string;
     userId?: string;
     pictures?: string[];
+    area: string;
   }
 ): Promise<Donation | null> {
   const donation = await prisma.donation.update({
     where: { id },
     data: {
+      area: data.area,
       title: data.title,
       category: data.category,
       latitude: data.latitude,

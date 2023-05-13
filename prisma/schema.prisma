@@ -16,21 +16,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Permission {
-  GENERAL
-}
-
-model ApiKey {
-  id          String       @id @default(dbgenerated("gen_random_uuid()")) // using uuid-ossp extension for Postgres
-  key         String       @unique
-  version     Int          @default(1)
-  permissions Permission[]
-  comments    String[]
-  status      Boolean?     @default(true)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-}
-
 //
 // Donation.prisma
 //
@@ -58,6 +43,11 @@ model Donation {
   userId               String
   pictures             Picture[]
   SafetyCheck          SafetyCheck?
+  area                 String?
+  driverId             Int?
+  driver               Driver?      @relation(fields: [driverId], references: [id])
+  recipientId          Int?
+  recipient            Recipient?   @relation(fields: [recipientId], references: [id])
 }
 
 model Picture {
@@ -89,6 +79,7 @@ model Driver {
   driverReviews           DriverReview[]
   recipientReviews        RecipientReview[]
   DonorReview             DonorReview[]
+  donations               Donation[]
 }
 
 //
@@ -129,6 +120,7 @@ model Recipient {
   driverReviews   DriverReview[]
   recipientReview RecipientReview[]
   DonorReview     DonorReview[]
+  donations       Donation[]
 }
 
 //

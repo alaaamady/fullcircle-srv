@@ -1,5 +1,7 @@
 import { SafetyCheck } from "SafetyCheck"
 import { user } from "User"
+import { Driver } from "Driver"
+import { Recipient } from "../../../prisma/schema"
 
 enum FoodCategory {
   GREENS
@@ -25,6 +27,11 @@ model Donation {
     userId               String
     pictures             Picture[]
     SafetyCheck          SafetyCheck?
+    area                 String?
+    driverId             Int?
+    driver               Driver?              @relation(fields: [driverId], references: [id])
+    recipientId          Int?
+    recipient            Recipient?           @relation(fields: [recipientId], references: [id])
 }
 
 model Picture {
