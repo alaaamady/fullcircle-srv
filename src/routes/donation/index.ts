@@ -27,6 +27,7 @@ router.post("", upload.array("pictures"), async (req, res) => {
       expiryDate,
       description,
       userId,
+      area
     } = req.body;
 
     const pictures = req.files as Express.Multer.File[];
@@ -41,7 +42,8 @@ router.post("", upload.array("pictures"), async (req, res) => {
       new Date(expiryDate),
       description,
       userId,
-      pictures
+      pictures,
+      area
     );
 
     res.status(201).json(donation);
@@ -93,6 +95,7 @@ router.put("/:id", async (req: Request, res: Response) => {
       description,
       userId,
       pictures,
+      area
     } = req.body;
 
     const donation = await updateDonation(id, {
@@ -106,6 +109,7 @@ router.put("/:id", async (req: Request, res: Response) => {
       description,
       userId,
       pictures,
+      area
     });
 
     if (donation === null) {
