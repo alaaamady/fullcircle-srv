@@ -87,12 +87,12 @@ model Driver {
 //
 
 model Homeless {
-  id            Int    @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   longitude     Float
   latitude      Float
   address       String
-  description   String
-  confirmations Int
+  description   String?
+  confirmations Int?
 }
 
 //

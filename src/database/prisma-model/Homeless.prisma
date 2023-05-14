@@ -3,6 +3,6 @@ model Homeless {
     longitude     Float
     latitude      Float
     address       String
-    description   String
-    confirmations Int
+    description   String?
+    confirmations Int?
 }
