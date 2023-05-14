@@ -51,14 +51,13 @@ model Donation {
 }
 
 model Picture {
-    id          Int        @id @default(autoincrement())
-    url         String
-    donation    Donation?  @relation(fields: [donationId], references: [id])
-    donationId  Int?
-    recipientId Int?
-    recipient   Recipient? @relation(fields: [recipientId], references: [id])
+  id          Int        @id @default(autoincrement())
+  url         String
+  donation    Donation?  @relation(fields: [donationId], references: [id])
+  donationId  Int?
+  recipientId Int?
+  recipient   Recipient? @relation(fields: [recipientId], references: [id])
 }
-
 
 //
 // Driver.prisma
@@ -102,21 +101,15 @@ model Homeless {
 // Recipient.prisma
 //
 
-enum OrganizationType {
-  ORPHANAGE
-  HOMELESS_SHELTER
-  COMMUNITY_KITCHEN
-  FAMILY_IN_NEED
-  ANIMAL_SHELTER
-}
-
 model Recipient {
   id              Int               @id @default(autoincrement())
   logo            String
   name            String
-  type            OrganizationType
+  latitude        Float
+  longitude       Float
+  type            String
   pictures        Picture[]
-  amountOfPeople  Int
+  amountOfPeople  String
   bio             String
   userId          String
   user            user              @relation(fields: [userId], references: [id])
@@ -125,7 +118,6 @@ model Recipient {
   DonorReview     DonorReview[]
   donations       Donation[]
 }
-
 
 //
 // Review.prisma

@@ -3,13 +3,6 @@ import { DriverReview, RecipientReview, DonorReview } from "Review"
 import { Donation } from "./Donation"
 import { Picture } from "../../../prisma/schema"
 
-enum OrganizationType {
-    ORPHANAGE
-    HOMELESS_SHELTER
-    COMMUNITY_KITCHEN
-    FAMILY_IN_NEED
-    ANIMAL_SHELTER
-}
 
 model Recipient {
     id              Int               @id @default(autoincrement())
