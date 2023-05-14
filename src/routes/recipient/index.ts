@@ -23,7 +23,7 @@ router.post("", upload.fields([
     const pictures = req.files["pictures"] as Express.Multer.File[];
     const logo = req.files["logo"][0] as Express.Multer.File;
     
-    const newRecipient = await createRecipient({ name, type, amountOfPeople: Number(amountOfPeople), bio, userId, pictures, logo, longitude: Number(longitude), latitude: Number(latitude) });
+    const newRecipient = await createRecipient({ name, type, amountOfPeople, bio, userId, pictures, logo, longitude: Number(longitude), latitude: Number(latitude) });
     res.json(newRecipient);
   } catch (err) {
     console.error(err);

@@ -3,25 +3,26 @@ import { DriverReview, RecipientReview, DonorReview } from "Review"
 import { Donation } from "../../../prisma/schema"
 
 model Driver {
-    id                      Int               @id @default(autoincrement())
-    carType                 String
-    carMake                 String
-    carModel                String
-    manufactureYear         String
-    color                   String
-    registrationCertificate String
-    licensePlate            String
-    photos                  String[]
-    vehicleInspictionReport String
-    driverLicense           String
-    verified                Boolean
-    userId                  String
-    user                    user              @relation(fields: [userId], references: [id])
-    driverReviews           DriverReview[]
-    recipientReviews        RecipientReview[]
-    DonorReview             DonorReview[]
-    donations               Donation[]
+  id                      Int               @id @default(autoincrement())
+  carType                 String
+  carMake                 String
+  carModel                String
+  manufactureYear         String
+  color                   String
+  registrationCertificate String
+  licensePlate            String
+  photos                  String[]
+  vehicleInspictionReport String
+  driverLicense           String
+  verified                Boolean
+  userId                  String
+  user                    user              @relation(fields: [userId], references: [id])
+  driverReviews           DriverReview[]
+  recipientReviews        RecipientReview[]
+  DonorReview             DonorReview[]
+  donations               Donation[]
 }
+
 
 
 

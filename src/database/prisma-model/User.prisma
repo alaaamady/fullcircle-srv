@@ -11,22 +11,23 @@ enum RoleCode {
 }
 
 model user {
-  id                  String            @id
-  email               String            @unique
-  firstname           String?
-  lastname            String?
-  password            String?
-  phoneNumber         String?
-  address             String?
-  gender              String?
-  age                 Int?
-  is_verified         Boolean?          @default(false)
-  profile_picture_url String?
-  donations           Donation[]
-  Driver              Driver[]
-  Recipient           Recipient[]
-  driverReviews       DriverReview[]
-  recipientReviews    RecipientReview[]
-  DonorReview         DonorReview[]
+    id                  String            @id
+    email               String            @unique
+    firstname           String?
+    lastname            String?
+    password            String?
+    phoneNumber         String?
+    address             String?
+    gender              String?
+    age                 Int?
+    is_verified         Boolean?          @default(false)
+    profile_picture_url String?
+    donations           Donation[]
+    Driver              Driver[]
+    Recipient           Recipient[]
+    driverReviews       DriverReview[]
+    recipientReviews    RecipientReview[]
+    DonorReview         DonorReview[]
 }
+
 

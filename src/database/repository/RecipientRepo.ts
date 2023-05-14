@@ -1,4 +1,4 @@
-import { OrganizationType, PrismaClient, Recipient } from "@prisma/client";
+import {  PrismaClient, Recipient } from "@prisma/client";
 import AWS from "aws-sdk";
 
 const prisma = new PrismaClient();
@@ -11,9 +11,9 @@ const s3 = new AWS.S3({
 async function createRecipient(recipient: {
   logo: Express.Multer.File;
   name: string;
-  type: OrganizationType;
+  type: string;
   pictures: Express.Multer.File[];
-  amountOfPeople: number;
+  amountOfPeople: string;
   bio: string;
   userId: string;
   longitude: number;
