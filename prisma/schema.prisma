@@ -51,13 +51,14 @@ model Donation {
 }
 
 model Picture {
-  id          Int        @id @default(autoincrement())
-  url         String
-  donation    Donation?  @relation(fields: [donationId], references: [id])
-  donationId  Int?
-  recipientId Int?
-  recipient   Recipient? @relation(fields: [recipientId], references: [id])
+    id          Int        @id @default(autoincrement())
+    url         String
+    donation    Donation?  @relation(fields: [donationId], references: [id])
+    donationId  Int?
+    recipientId Int?
+    recipient   Recipient? @relation(fields: [recipientId], references: [id])
 }
+
 
 //
 // Driver.prisma

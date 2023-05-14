@@ -5,6 +5,7 @@ import {
   updateRecipient,
   deleteRecipient,
   getAllRecipients,
+  addPreferenceRepo,
 } from "../../database/repository/RecipientRepo";
 import multer from "multer";
 
@@ -80,6 +81,30 @@ router.delete("/:id", async (req: Request, res: Response) => {
     res.status(200).json(deletedRecipient);
   } catch (error) {
     res.status(500).json({ error: "Unable to delete recipient." });
+  }
+});
+
+//add preference
+
+router.post("/:recipientId/preferences", async (req: Request, res: Response) => {
+  try {
+    const recipientId = parseInt(req.params.recipientId);
+    const { mealType, preferences } = req.body;
+
+    const updatedRecipient = await addPreferenceRepo(
+      recipientId,
+      mealType,
+      preferences
+    );
+
+    if (updatedRecipient) {
+      res.json(updatedRecipient);
+    } else {
+      res.status(404).send("Recipient not found");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error adding preference to recipient");
   }
 });
 

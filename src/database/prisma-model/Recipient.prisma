@@ -3,7 +3,6 @@ import { DriverReview, RecipientReview, DonorReview } from "Review"
 import { Donation } from "./Donation"
 import { Picture } from "../../../prisma/schema"
 
-
 model Recipient {
     id              Int               @id @default(autoincrement())
     logo            String
@@ -20,4 +19,14 @@ model Recipient {
     recipientReview RecipientReview[]
     DonorReview     DonorReview[]
     donations       Donation[]
+    preference      Preference?
+}
+
+model Preference {
+    id          Int      @id @default(autoincrement())
+    mealType    String
+    preferences String[]
+
+    recipient   Recipient? @relation(fields: [recipientId], references: [id])
+    recipientId Int?       @unique
 }

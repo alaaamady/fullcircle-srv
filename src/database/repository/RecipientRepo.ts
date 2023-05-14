@@ -51,6 +51,7 @@ async function createRecipient(recipient: {
   });
 }
 
+
 async function uploadFileToS3(file: Express.Multer.File): Promise<string> {
   const filename = `${Date.now()}-${file.originalname}`;
   const params = {
@@ -94,10 +95,35 @@ async function deleteRecipient(id: number): Promise<Recipient | null> {
   });
 }
 
+async function addPreferenceRepo(
+  recipientId: number,
+  mealType: string,
+  preferences: string[]
+): Promise<Recipient | null> {
+  return prisma.$transaction(async (prisma) => {
+    const updatedRecipient = await prisma.recipient.update({
+      where: {
+        id: recipientId,
+      },
+      data: {
+        preference: {
+          create: {mealType, preferences}
+        }
+      },
+      include: {
+        preference: true
+      }
+    });
+
+    return updatedRecipient;
+  });
+}
+
 export {
   createRecipient,
   getRecipientById,
   updateRecipient,
   deleteRecipient,
   getAllRecipients,
+  addPreferenceRepo
 };
