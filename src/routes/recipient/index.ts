@@ -6,19 +6,32 @@ import {
   deleteRecipient,
   getAllRecipients,
 } from "../../database/repository/RecipientRepo";
+import multer from "multer";
 
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 
 // Create a new recipient
-router.post("", async (req: Request, res: Response) => {
+router.post("", upload.fields([
+  { name: "pictures", maxCount: 10 },
+  { name: "logo", maxCount: 1 },
+]), async (req: Request, res: Response) => {
   try {
-    const newRecipient = await createRecipient(req.body);
+    const { name, type, amountOfPeople, bio, longitude, latitude, userId } = req.body;
+    const pictures = req.files["pictures"] as Express.Multer.File[];
+    const logo = req.files["logo"][0] as Express.Multer.File;
+    
+    const newRecipient = await createRecipient({ name, type, amountOfPeople: Number(amountOfPeople), bio, userId, pictures, logo, longitude: Number(longitude), latitude: Number(latitude) });
     res.json(newRecipient);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error creating recipient");
+    res.status(500).send(`Error creating recipient: ${err}`);
   }
 });
+
+
 
 router.get("", async (req: Request, res: Response) => {
   try {

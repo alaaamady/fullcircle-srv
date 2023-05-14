@@ -51,10 +51,12 @@ model Donation {
 }
 
 model Picture {
-  id         Int      @id @default(autoincrement())
-  url        String
-  donation   Donation @relation(fields: [donationId], references: [id])
-  donationId Int
+  id          Int        @id @default(autoincrement())
+  url         String
+  donation    Donation?  @relation(fields: [donationId], references: [id])
+  donationId  Int?
+  recipientId Int?
+  recipient   Recipient? @relation(fields: [recipientId], references: [id])
 }
 
 //
@@ -111,8 +113,10 @@ model Recipient {
   id              Int               @id @default(autoincrement())
   logo            String
   name            String
+  latitude        Float
+  longitude       Float
   type            OrganizationType
-  pictures        String[]
+  pictures        Picture[]
   amountOfPeople  Int
   bio             String
   userId          String

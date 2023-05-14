@@ -1,6 +1,7 @@
 import { user } from "User"
 import { DriverReview, RecipientReview, DonorReview } from "Review"
 import { Donation } from "./Donation"
+import { Picture } from "../../../prisma/schema"
 
 enum OrganizationType {
     ORPHANAGE
@@ -14,8 +15,10 @@ model Recipient {
     id              Int               @id @default(autoincrement())
     logo            String
     name            String
+    latitude        Float
+    longitude       Float
     type            OrganizationType
-    pictures        String[]
+    pictures        Picture[]
     amountOfPeople  Int
     bio             String
     userId          String
@@ -25,7 +28,3 @@ model Recipient {
     DonorReview     DonorReview[]
     donations       Donation[]
 }
-
-
-
-
