@@ -5,19 +5,40 @@ import {
   updateDriver,
   deleteDriver,
 } from "../../database/repository/DriverRepo";
+import multer, { Multer } from "multer";
 
 const router = express.Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+//vehicle photo - inspection report - driver license
 // Create a new driver
-router.post("/", async (req: Request, res: Response) => {
-  try {
-    const newDriver = await createDriver(req.body);
-    res.json(newDriver);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error creating driver");
+router.post(
+  "/",
+  upload.fields([
+    { name: "registrationCertificate", maxCount: 1 },
+    { name: "licensePlate", maxCount: 1 },
+    { name: "photos", maxCount: 10 },
+    { name: "vehicleInspictionReport", maxCount: 1 },
+    { name: "driverLicense", maxCount: 1 },
+  ]),
+  async (req: Request, res: Response) => {
+    try {
+      const { carType, carMake, carModel, manufactureYear, color, userId } = req.body;
+      const registrationCertificate = req.files["registrationCertificate"][0] as Express.Multer.File;
+      const licensePlate = req.files["licensePlate"][0] as Express.Multer.File;
+      const photos = req.files["photos"] as Express.Multer.File[];
+      const vehicleInspictionReport = req.files["vehicleInspictionReport"][0] as Express.Multer.File;
+      const driverLicense = req.files["driverLicense"][0] as Express.Multer.File;
+      const newDriver = await createDriver({carMake, carModel, carType, color, driverLicense, licensePlate, manufactureYear, vehicleInspictionReport, registrationCertificate, userId, photos, verified: req.body.verified === 'true' ? true : false});
+      res.json(newDriver);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error creating driver");
+    }
   }
-});
+);
 
 // Get a driver by ID
 router.get("/:id", async (req: Request, res: Response) => {
