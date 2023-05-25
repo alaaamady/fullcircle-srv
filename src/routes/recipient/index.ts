@@ -61,7 +61,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 // Update a recipient by ID
-router.put("/:id", async (req: Request, res: Response) => {
+router.patch("/:id", async (req: Request, res: Response) => {
   try {
     const recipientId = parseInt(req.params.id);
     const updatedRecipient = await updateRecipient(recipientId, req.body);

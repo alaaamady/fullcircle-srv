@@ -68,7 +68,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 // Update a driver by ID
-router.put("/:id", async (req: Request, res: Response) => {
+router.patch("/:id", async (req: Request, res: Response) => {
   try {
     const driverId = parseInt(req.params.id);
     const updatedDriver = await updateDriver(driverId, req.body);

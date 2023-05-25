@@ -81,7 +81,7 @@ router.get("", async (req: Request, res: Response) => {
 });
 
 // Update an existing donation by ID
-router.put("/:id", async (req: Request, res: Response) => {
+router.patch("/:id", async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
     const {
