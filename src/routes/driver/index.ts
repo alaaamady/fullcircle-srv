@@ -4,6 +4,7 @@ import {
   getDriverById,
   updateDriver,
   deleteDriver,
+  getAllDrivers,
 } from "../../database/repository/DriverRepo";
 import multer, { Multer } from "multer";
 
@@ -39,6 +40,16 @@ router.post(
     }
   }
 );
+
+router.get("", async (req: Request, res: Response) => {
+  try {
+    const drivers = await getAllDrivers();
+    res.json(drivers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error getting drivers" });
+  }
+});
 
 // Get a driver by ID
 router.get("/:id", async (req: Request, res: Response) => {

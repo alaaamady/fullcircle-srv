@@ -97,5 +97,7 @@ async function deleteDriver(id: number): Promise<Driver | null> {
     },
   });
 }
-
-export { createDriver, getDriverById, updateDriver, deleteDriver };
+async function getAllDrivers(): Promise<Driver[] | null> {
+  return prisma.driver.findMany({});
+}
+export { createDriver, getDriverById, updateDriver, deleteDriver, getAllDrivers };
