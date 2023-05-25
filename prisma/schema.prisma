@@ -63,6 +63,12 @@ model Picture {
 // Driver.prisma
 //
 
+enum Status {
+  verified
+  pending
+  rejected
+}
+
 model Driver {
   id                      Int               @id @default(autoincrement())
   carType                 String
@@ -75,7 +81,8 @@ model Driver {
   photos                  String[]
   vehicleInspictionReport String
   driverLicense           String
-  verified                Boolean
+  status                  Status
+  comments                String?
   userId                  String
   user                    user              @relation(fields: [userId], references: [id])
   driverReviews           DriverReview[]

@@ -26,13 +26,13 @@ router.post(
   ]),
   async (req: Request, res: Response) => {
     try {
-      const { carType, carMake, carModel, manufactureYear, color, userId } = req.body;
+      const { carType, carMake, carModel, manufactureYear, color, userId, status } = req.body;
       const registrationCertificate = req.files["registrationCertificate"][0] as Express.Multer.File;
       const licensePlate = req.files["licensePlate"][0] as Express.Multer.File;
       const photos = req.files["photos"] as Express.Multer.File[];
       const vehicleInspictionReport = req.files["vehicleInspictionReport"][0] as Express.Multer.File;
       const driverLicense = req.files["driverLicense"][0] as Express.Multer.File;
-      const newDriver = await createDriver({carMake, carModel, carType, color, driverLicense, licensePlate, manufactureYear, vehicleInspictionReport, registrationCertificate, userId, photos, verified: req.body.verified === 'true' ? true : false});
+      const newDriver = await createDriver({carMake, carModel, carType, color, driverLicense, licensePlate, manufactureYear, vehicleInspictionReport, registrationCertificate, userId, photos, status});
       res.json(newDriver);
     } catch (err) {
       console.error(err);

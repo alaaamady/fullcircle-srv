@@ -6,49 +6,51 @@ import { FoodCategory } from "./Donation"
 import { FoodCategory } from "../../../prisma/schema"
 
 model DriverReview {
-    id                Int     @id @default(autoincrement())
-    pickupConvenience Int
-    donorDestination  Int
-    packaging         Int
-    additionalNotes   String?
-    type              String
-    correctAddress    Boolean
+  id                Int     @id @default(autoincrement())
+  pickupConvenience Int
+  donorDestination  Int
+  packaging         Int
+  additionalNotes   String?
+  type              String
+  correctAddress    Boolean
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    driver   Driver @relation(fields: [driverId], references: [id])
-    driverId Int
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
 
-    recipient   Recipient @relation(fields: [recipientId], references: [id])
-    recipientId Int
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
 
-    donor   user   @relation(fields: [donorId], references: [id])
-    donorId String
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
 }
+
 
 
 model RecipientReview {
-    id                Int           @id @default(autoincrement())
-    deliveredWell     Boolean
-    additionalNotes   String?
-    fitCategory       Boolean
-    preferredCategory FoodCategory
-    quantityEnough    Boolean
-    servingsCount     ServingsCount
+  id                Int           @id @default(autoincrement())
+  deliveredWell     Boolean
+  additionalNotes   String?
+  fitCategory       Boolean
+  preferredCategory FoodCategory
+  quantityEnough    Boolean
+  servingsCount     ServingsCount
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    driver   Driver @relation(fields: [driverId], references: [id])
-    driverId Int
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
 
-    recipient   Recipient @relation(fields: [recipientId], references: [id])
-    recipientId Int
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
 
-    donor   user   @relation(fields: [donorId], references: [id])
-    donorId String
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
 }
+
 
 
 enum ServingsCount {
@@ -60,17 +62,18 @@ enum ServingsCount {
 }
 
 model DonorReview {
-    id              Int     @id @default(autoincrement())
-    safetyCheck     Boolean
-    additionalNotes String
+  id              Int     @id @default(autoincrement())
+  safetyCheck     Boolean
+  additionalNotes String
 
-    driver   Driver @relation(fields: [driverId], references: [id])
-    driverId Int
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId Int
 
-    recipient   Recipient @relation(fields: [recipientId], references: [id])
-    recipientId Int
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+  recipientId Int
 
-    donor   user   @relation(fields: [donorId], references: [id])
-    donorId String
+  donor   user   @relation(fields: [donorId], references: [id])
+  donorId String
 }
+
 

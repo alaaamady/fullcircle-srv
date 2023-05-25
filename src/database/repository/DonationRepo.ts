@@ -21,7 +21,7 @@ async function createDonation(
   description: string,
   userId: string,
   pictures: Express.Multer.File[],
-  area: string,
+  area: string
 ): Promise<Donation> {
   const pictureUrls = await Promise.all(
     pictures.map(async (file) => {
@@ -46,10 +46,14 @@ async function createDonation(
       pickUpTimestampEnd,
       expiryDate,
       description,
-      userId,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
       pictures: {
         create: pictureUrls.map((url) => ({ url })),
-      }
+      },
     },
     include: {
       pictures: true,

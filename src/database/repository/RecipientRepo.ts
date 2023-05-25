@@ -1,4 +1,4 @@
-import {  PrismaClient, Recipient } from "@prisma/client";
+import { PrismaClient, Recipient } from "@prisma/client";
 import AWS from "aws-sdk";
 
 const prisma = new PrismaClient();
@@ -31,9 +31,9 @@ async function createRecipient(recipient: {
       return Location;
     })
   );
-  
+
   const logoUrl = await uploadFileToS3(recipient.logo);
-  
+
   return prisma.recipient.create({
     data: {
       name: recipient.name,
@@ -46,11 +46,14 @@ async function createRecipient(recipient: {
       logo: logoUrl,
       longitude: recipient.longitude,
       latitude: recipient.latitude,
-      userId: recipient.userId
+      user: {
+        connect: {
+          id: recipient.userId,
+        },
+      },
     },
   });
 }
-
 
 async function uploadFileToS3(file: Express.Multer.File): Promise<string> {
   const filename = `${Date.now()}-${file.originalname}`;
@@ -107,12 +110,12 @@ async function addPreferenceRepo(
       },
       data: {
         preference: {
-          create: {mealType, preferences}
-        }
+          create: { mealType, preferences },
+        },
       },
       include: {
-        preference: true
-      }
+        preference: true,
+      },
     });
 
     return updatedRecipient;
@@ -125,5 +128,5 @@ export {
   updateRecipient,
   deleteRecipient,
   getAllRecipients,
-  addPreferenceRepo
+  addPreferenceRepo,
 };

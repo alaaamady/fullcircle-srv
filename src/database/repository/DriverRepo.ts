@@ -1,4 +1,4 @@
-import { PrismaClient, Driver } from "@prisma/client";
+import { PrismaClient, Driver, Status } from "@prisma/client";
 import AWS from "aws-sdk";
 
 const prisma = new PrismaClient();
@@ -30,7 +30,7 @@ async function createDriver(driver: {
   registrationCertificate: Express.Multer.File;
   userId: string;
   photos: Express.Multer.File[];
-  verified: boolean;
+  status: Status;
 }): Promise<Driver> {
   const driverLicenseUrl = await uploadFileToS3(driver.driverLicense);
   const licensePlateUrl = await uploadFileToS3(driver.licensePlate);
@@ -59,13 +59,17 @@ async function createDriver(driver: {
       carType: driver.carType,
       color: driver.color,
       manufactureYear: driver.manufactureYear,
-      userId: driver.userId,
+      user: {
+        connect: {
+          id: driver.userId
+        }
+      },
       driverLicense: driverLicenseUrl,
       licensePlate: licensePlateUrl,
       registrationCertificate: registrationCertificateUrl,
       vehicleInspictionReport: vehicleInspictionReportUrl,
-      verified: driver.verified,
       photos: pictureUrls,
+      status: driver.status
     },
   });
 }
