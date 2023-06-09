@@ -39,6 +39,7 @@ model Donation {
   pickUpTimestampEnd   DateTime
   expiryDate           DateTime
   description          String
+  status               String?
   user                 user         @relation(fields: [userId], references: [id])
   userId               String
   pictures             Picture[]

@@ -46,6 +46,7 @@ async function createDonation(
       pickUpTimestampEnd,
       expiryDate,
       description,
+      status: "pending",
       user: {
         connect: {
           id: userId,
@@ -72,15 +73,22 @@ async function getDonationById(id: number): Promise<Donation | null> {
   return donation;
 }
 
-// Get a list of all donations
-async function getAllDonations(): Promise<Donation[]> {
+
+
+async function getAllDonations(userId?: string, driverId?: number, status?: string): Promise<Donation[]> {
   const donations = await prisma.donation.findMany({
+    where: {
+      userId: userId ? { equals: userId } : undefined,
+      driverId: driverId ? { equals: driverId } : undefined,
+      status: status ? { equals: status } : undefined,
+    },
     include: {
       pictures: true,
     },
   });
   return donations;
 }
+
 
 // Update an existing donation by ID
 async function updateDonation(
@@ -97,6 +105,7 @@ async function updateDonation(
     userId?: string;
     pictures?: string[];
     area: string;
+    status: string;
   }
 ): Promise<Donation | null> {
   const donation = await prisma.donation.update({
@@ -112,6 +121,7 @@ async function updateDonation(
       expiryDate: data.expiryDate,
       description: data.description,
       userId: data.userId,
+      status: data.status,
       pictures: {
         create: data.pictures?.map((url) => ({ url })),
       },
@@ -140,6 +150,7 @@ async function deleteDonation(id: number): Promise<any[] | null> {
 
   return transaction;
 }
+
 
 export {
   createDonation,

@@ -61,15 +61,15 @@ async function createDriver(driver: {
       manufactureYear: driver.manufactureYear,
       user: {
         connect: {
-          id: driver.userId
-        }
+          id: driver.userId,
+        },
       },
       driverLicense: driverLicenseUrl,
       licensePlate: licensePlateUrl,
       registrationCertificate: registrationCertificateUrl,
       vehicleInspictionReport: vehicleInspictionReportUrl,
       photos: pictureUrls,
-      status: driver.status
+      status: driver.status,
     },
   });
 }
@@ -104,4 +104,11 @@ async function deleteDriver(id: number): Promise<Driver | null> {
 async function getAllDrivers(): Promise<Driver[] | null> {
   return prisma.driver.findMany({});
 }
-export { createDriver, getDriverById, updateDriver, deleteDriver, getAllDrivers };
+
+export {
+  createDriver,
+  getDriverById,
+  updateDriver,
+  deleteDriver,
+  getAllDrivers,
+};

@@ -72,7 +72,10 @@ router.get("/:id", async (req: Request, res: Response) => {
 // Get a list of all donations
 router.get("", async (req: Request, res: Response) => {
   try {
-    const donations = await getAllDonations();
+
+    const { userId, driverId, status } = req.body;
+    console.log('started', userId, driverId, status)
+    const donations = await getAllDonations(userId, driverId, status);
     res.json(donations);
   } catch (error) {
     console.error(error);
@@ -95,7 +98,8 @@ router.patch("/:id", async (req: Request, res: Response) => {
       description,
       userId,
       pictures,
-      area
+      area,
+      status
     } = req.body;
 
     const donation = await updateDonation(id, {
@@ -109,7 +113,8 @@ router.patch("/:id", async (req: Request, res: Response) => {
       description,
       userId,
       pictures,
-      area
+      area,
+      status
     });
 
     if (donation === null) {
